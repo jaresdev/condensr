@@ -1,5 +1,6 @@
 import type { Request, Response } from 'express'
 import { nanoid } from 'nanoid'
+import { isURL } from 'validator'
 import Url from '../models/url'
 
 export async function shortenUrl(req: Request, res: Response) {
@@ -7,6 +8,12 @@ export async function shortenUrl(req: Request, res: Response) {
 
   if (!longUrl) {
     return res.status(400).json({ error: 'longUrl is required!' })
+  }
+
+  if (
+    !isURL(longUrl, { protocols: ['http', 'https'], require_protocol: true })
+  ) {
+    return res.status(400).json({ error: 'Invalid URL format!' })
   }
 
   try {
