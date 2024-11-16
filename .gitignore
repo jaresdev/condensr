@@ -1,0 +1,24 @@
+# Node.js
+node_modules/
+.env
+*.log
+
+# Astro, React, TailwindCSS
+frontend/node_modules/
+frontend/.next/
+frontend/.cache/
+frontend/.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDEs & OS
+.vscode/
+.idea/
+.DS_Store
+
+# Build & cache
+dist/
+build/
