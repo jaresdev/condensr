@@ -1,8 +1,9 @@
 import type { Request, Response } from 'express'
 import { nanoid } from 'nanoid'
+import Url from '../models/url'
 
 export async function shortenUrl(req: Request, res: Response) {
-  const longUrl = req.body
+  const { longUrl } = req.body
 
   if (!longUrl) {
     return res.status(400).json({ error: 'longUrl is required!' })
@@ -10,6 +11,9 @@ export async function shortenUrl(req: Request, res: Response) {
 
   try {
     const shortId = nanoid(6)
+
+    const newUrl = new Url({ longUrl, shortId })
+    await newUrl.save()
 
     res.status(201).json({
       longUrl,
