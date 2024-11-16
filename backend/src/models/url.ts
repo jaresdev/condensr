@@ -19,6 +19,12 @@ const urlSchema = new mongoose.Schema(
   { timestamps: true },
 )
 
-const Url = mongoose.model('Url', urlSchema)
+urlSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString()
+    delete returnedObject._id
+    delete returnedObject.__v
+  },
+})
 
-export default Url
+export default mongoose.model('Url', urlSchema)

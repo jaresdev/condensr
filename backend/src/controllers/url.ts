@@ -24,3 +24,20 @@ export async function shortenUrl(req: Request, res: Response) {
     res.status(500).json({ error: 'Internal server error.' })
   }
 }
+
+export async function redirectToUrl(req: Request, res: Response) {
+  const { shortId } = req.params
+
+  try {
+    const url = await Url.findOne({ shortId })
+
+    if (!url) {
+      return res.status(404).json({ error: 'Short Url not found!' })
+    }
+
+    return res.redirect(url.longUrl!)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Internal server error.' })
+  }
+}

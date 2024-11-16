@@ -4,6 +4,6 @@ import urlRouter from './routes/url'
 const app = express()
 app.use(express.json())
 
-app.use('/api', urlRouter)
+app.use('/', urlRouter)
 
 export default app
