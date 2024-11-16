@@ -3,7 +3,8 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "dev": "nodemon --watch src --exec bun run src/server.ts"
+    "start": "NODE_ENV=production nodemon --watch src --exec bun run src/server.ts",
+    "dev": "NODE_ENV=development nodemon --watch src --exec bun run src/server.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
