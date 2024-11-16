@@ -26,7 +26,6 @@ export async function shortenUrl(req: Request, res: Response) {
 }
 
 export async function redirectToUrl(req: Request, res: Response) {
-  console.log('TEST')
   const { shortId } = req.params
 
   try {
