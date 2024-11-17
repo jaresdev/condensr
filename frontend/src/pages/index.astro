@@ -5,5 +5,30 @@ import Layout from '../layouts/Layout.astro'
 ---
 
 <Layout title="✂️ Condensr">
-  <main class="max-w-[1200px] h-screen m-auto overflow-hidden"></main>
+  <main class="
+    max-w-[1200px] h-screen m-auto overflow-hidden 
+    flex flex-col justify-center items-center gap-20
+  ">
+    <img src="condensr_logo.png" alt="condensr logo" />
+    <div class="w-full flex gap-6">
+      <input
+        type="text"
+        id="condensr-input"
+        class="border border-[#D1D5DB] text-[#0C1117] text-lg
+              rounded-lg focus:outline-none block w-full p-3
+              focus:border-2 focus:border-[#A8D5BA]"
+        placeholder="https://www.google.com"
+      />
+      <button 
+        class="flex-shrink-0 rounded-md px-6 py-3 
+        bg-[#A8D5BA] text-white font-semibold
+        hover:bg-[#6B8E75] active:shadow-inner active:translate-y-[2px]"
+      >Generate Short URL</button>
+    </div>
+    <div class="w-full flex items-center justify-center gap-3">
+      <p class="text-[#4B5563]"><span class="mr-2">✂️</span>Shorten</p>
+      <p class="text-[#4B5563]"><span class="mr-2">🔗</span>Share</p>
+      <p class="text-[#4B5563]"><span class="mr-2">🎯</span>Simplify</p>
+    </div>
+  </main>
 </Layout>
