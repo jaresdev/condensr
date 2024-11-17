@@ -6,7 +6,22 @@ module.exports = {
       fontFamily: {
         onest: ["One Stroke", "sans-serif"],
       },
+      colors: {
+        primary: "#A8D5BA",
+        secondary: "#ACAFB4",
+        tertiary: "#6B8E75",
+        accent: "#F7E8A4",
+        textPrimary: "#0C1117",
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addBase, theme }) {
+      addBase({
+        body: {
+          color: theme("colors.textPrimary"),
+        },
+      });
+    },
+  ],
 };

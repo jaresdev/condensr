@@ -19,7 +19,7 @@ import Layout from '../layouts/Layout.astro'
             xmlns="http://www.w3.org/2000/svg" 
             viewBox="0 0 24 24"  
             fill="none"  
-            stroke="#B2B2B2"  
+            stroke="#ACAFB4"  
             stroke-width="2"  
             stroke-linecap="round"  
             stroke-linejoin="round"  
@@ -34,22 +34,22 @@ import Layout from '../layouts/Layout.astro'
         <input
           type="text"
           id="condenst-input"
-          class="block w-full h-full md:ml-5 ps-14 p-3 ring-2 ring-[#D1D5DB] rounded-lg 
-          focus:outline-none focus:ring-2 focus:ring-[#A8D5BA] required"
+          class="block w-full h-full md:ml-5 ps-14 p-3 ring-2 ring-secondary rounded-lg 
+          focus:outline-none focus:ring-2 focus:ring-primary required"
           placeholder="https://www.google.com"
         />
       </div>
       <button 
         class="flex-shrink-0 rounded-md px-6 py-3 
-        bg-[#A8D5BA] text-white font-semibold
-        hover:bg-[#6B8E75] active:shadow-inner active:translate-y-[2px]
-        ring-2 ring-[#A8D5BA] hover:ring-[#6B8E75]"
+        bg-primary text-white font-semibold
+        hover:bg-tertiary active:shadow-inner active:translate-y-[2px]
+        ring-2 ring-primary hover:ring-tertiary"
       >Generate Short URL</button>
     </div>
     <div class="w-full flex items-center justify-center gap-3">
-      <p class="text-[#4B5563]"><span class="mr-2">✂️</span>Shorten</p>
-      <p class="text-[#4B5563]"><span class="mr-2">🔗</span>Share</p>
-      <p class="text-[#4B5563]"><span class="mr-2">🎯</span>Simplify</p>
+      <p class="text-secondary"><span class="mr-2">✂️</span>Shorten</p>
+      <p class="text-secondary"><span class="mr-2">🔗</span>Share</p>
+      <p class="text-secondary"><span class="mr-2">🎯</span>Simplify</p>
     </div>
   </main>
 </Layout>
