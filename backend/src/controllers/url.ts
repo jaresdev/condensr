@@ -11,7 +11,7 @@ export async function shortenUrl(req: Request, res: Response) {
   }
 
   if (
-    !isURL(longUrl, { protocols: ['http', 'https'], require_protocol: true })
+    !isURL(longUrl, { protocols: ['http', 'https'], require_protocol: false })
   ) {
     return res.status(400).json({ error: 'Invalid URL format!' })
   }
