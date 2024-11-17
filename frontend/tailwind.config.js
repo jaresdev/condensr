@@ -12,6 +12,8 @@ module.exports = {
         tertiary: "#6B8E75",
         accent: "#F7E8A4",
         textPrimary: "#0C1117",
+        errorText: "#EF4444",
+        errorBorder: "#F87171",
       },
     },
   },
