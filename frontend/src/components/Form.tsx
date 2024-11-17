@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import API_BASE_URL from '../config/api'
 
-const Form = () => {
+const Form = ({ apiUrl }: { apiUrl: String }) => {
   const [url, setUrl] = useState('')
   const [shortUrl, setShortUrl] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
@@ -22,7 +21,7 @@ const Form = () => {
       return
     }
 
-    const response = await fetch(`${API_BASE_URL}/api/`, {
+    const response = await fetch(`${apiUrl}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
