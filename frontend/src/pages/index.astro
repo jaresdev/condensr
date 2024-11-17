@@ -12,18 +12,38 @@ import Layout from '../layouts/Layout.astro'
     <div class="w-full flex items-center justify-center">
       <img src="condensr_logo.png" alt="condensr logo" />
     </div>
-    <div class="w-full h-40 md:h-20 box-border flex flex-col md:flex-row gap-6 p-3">
-      <input
-        type="text"
-        id="condensr-input"
-        class="block active:box-border h-40 md:h-auto w-full p-3 border border-[#D1D5DB] text-[#0C1117] text-lg
-              rounded-lg focus:outline-none focus:border-2 focus:border-[#A8D5BA]"
-        placeholder="https://www.google.com"
-      />
+    <div class="w-full h-40 md:h-20 box-border flex flex-col md:flex-row gap-8 p-3">
+      <div class="relative w-full">
+        <div class="absolute inset-0 start-0 flex items-center ps-4 md:ps-8 pointer-events-none">
+          <svg  
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 24 24"  
+            fill="none"  
+            stroke="#B2B2B2"  
+            stroke-width="2"  
+            stroke-linecap="round"  
+            stroke-linejoin="round"  
+            class="size-8 icon icon-tabler icons-tabler-outline icon-tabler-link"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 15l6 -6" />
+            <path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464" />
+            <path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463" />
+          </svg>
+        </div>
+        <input
+          type="text"
+          id="condenst-input"
+          class="block w-full h-full md:ml-5 ps-14 p-3 ring-2 ring-[#D1D5DB] rounded-lg 
+          focus:outline-none focus:ring-2 focus:ring-[#A8D5BA] required"
+          placeholder="https://www.google.com"
+        />
+      </div>
       <button 
         class="flex-shrink-0 rounded-md px-6 py-3 
         bg-[#A8D5BA] text-white font-semibold
-        hover:bg-[#6B8E75] active:shadow-inner active:translate-y-[2px]"
+        hover:bg-[#6B8E75] active:shadow-inner active:translate-y-[2px]
+        ring-2 ring-[#A8D5BA] hover:ring-[#6B8E75]"
       >Generate Short URL</button>
     </div>
     <div class="w-full flex items-center justify-center gap-3">
