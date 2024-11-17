@@ -34,7 +34,6 @@ const Form = () => {
 
     const data = await response.json()
     setShortUrl(data.shortUrl)
-    console.log(shortUrl)
   }
 
   return (
@@ -86,6 +85,13 @@ const Form = () => {
             </div>
           </div>
         </form>
+      )}
+      {shortUrl && (
+        <div className="w-full text-center font-bold text-lg text-primary underline">
+          <a href={shortUrl} target="_blank">
+            {shortUrl}
+          </a>
+        </div>
       )}
     </>
   )
