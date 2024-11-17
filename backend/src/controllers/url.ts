@@ -16,35 +16,25 @@ export async function shortenUrl(req: Request, res: Response) {
     return res.status(400).json({ error: 'Invalid URL format!' })
   }
 
-  try {
-    const shortId = nanoid(6)
+  const shortId = nanoid(6)
 
-    const newUrl = new Url({ longUrl, shortId })
-    await newUrl.save()
+  const newUrl = new Url({ longUrl, shortId })
+  await newUrl.save()
 
-    res.status(201).json({
-      longUrl,
-      shortUrl: `${req.protocol}://${req.get('host')}/${shortId}`,
-    })
-  } catch (error) {
-    console.error(error)
-    res.status(500).json({ error: 'Internal server error.' })
-  }
+  res.status(201).json({
+    longUrl,
+    shortUrl: `${req.protocol}://${req.get('host')}/${shortId}`,
+  })
 }
 
 export async function redirectToUrl(req: Request, res: Response) {
   const { shortId } = req.params
 
-  try {
-    const url = await Url.findOne({ shortId })
+  const url = await Url.findOne({ shortId })
 
-    if (!url) {
-      return res.status(404).json({ error: 'Short Url not found!' })
-    }
-
-    return res.redirect(url.longUrl!)
-  } catch (error) {
-    console.error(error)
-    res.status(500).json({ error: 'Internal server error.' })
+  if (!url) {
+    return res.status(404).json({ error: 'Short Url not found!' })
   }
+
+  return res.redirect(url.longUrl!)
 }
