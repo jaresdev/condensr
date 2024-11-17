@@ -9,14 +9,15 @@ import Layout from '../layouts/Layout.astro'
     max-w-[1200px] h-screen m-auto overflow-hidden 
     flex flex-col justify-center items-center gap-20
   ">
-    <img src="condensr_logo.png" alt="condensr logo" />
-    <div class="w-full flex gap-6">
+    <div class="w-full flex items-center justify-center">
+      <img src="condensr_logo.png" alt="condensr logo" />
+    </div>
+    <div class="w-full h-20 box-border flex gap-6 p-3">
       <input
         type="text"
         id="condensr-input"
-        class="border border-[#D1D5DB] text-[#0C1117] text-lg
-              rounded-lg focus:outline-none block w-full p-3
-              focus:border-2 focus:border-[#A8D5BA]"
+        class="block active:box-border w-full p-3 border border-[#D1D5DB] text-[#0C1117] text-lg
+              rounded-lg focus:outline-none focus:border-2 focus:border-[#A8D5BA]"
         placeholder="https://www.google.com"
       />
       <button 
