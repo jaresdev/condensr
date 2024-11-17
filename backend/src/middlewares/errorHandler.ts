@@ -1,21 +1,24 @@
-import type { Request, Response, NextFunction } from 'express'
+import type { ErrorRequestHandler } from 'express'
 import logger from '../utils/logger'
 
-export function errorHandler(
-  error: Error,
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) {
-  logger.error(error.message)
+export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+  logger.error(err.message)
 
-  if (error.name === 'ValidationError') {
-    return res.status(400).json({ error: 'ValidationError: ' + error.message })
-  } else if (error.name === 'MongoError') {
-    return res.status(400).json({ error: 'MongoError: ' + error.message })
-  } else if (error.name === 'TypeError') {
-    return res.status(404).json({ error: 'TypeError: ' + error.message })
+  if (err.name === 'ValidationError') {
+    res.status(err.status || 400).json({
+      error: err.message || 'ValidationError.',
+    })
+  } else if (err.name === 'MongoError') {
+    res.status(err.status || 400).json({
+      error: err.message || 'MongoError.',
+    })
+  } else if (err.name === 'TypeError') {
+    res.status(err.status || 400).json({
+      error: err.message || 'TypeError.',
+    })
   } else {
-    return res.status(400).send({ error: 'Internal server error.' })
+    res.status(err.status || 400).json({
+      error: err.message || 'Internal server error.',
+    })
   }
 }
