@@ -4,9 +4,19 @@ import express, {
   type NextFunction,
 } from 'express'
 import urlRouter from './routes/url'
+import cors from 'cors'
 import { errorHandler } from './middlewares/errorHandler'
 
 const app = express()
+
+app.use(
+  cors({
+    origin: 'http://localhost:4321',
+    methods: ['GET', 'POST'],
+    credentials: true,
+  }),
+)
+
 app.use(express.json())
 
 app.use('/', urlRouter)
