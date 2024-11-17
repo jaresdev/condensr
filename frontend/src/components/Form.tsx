@@ -21,20 +21,24 @@ const Form = ({ apiUrl }: { apiUrl: String }) => {
       return
     }
 
-    const response = await fetch(`${apiUrl}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ longUrl: url }),
-    })
+    try {
+      const response = await fetch(`${apiUrl}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ longUrl: url }),
+      })
 
-    if (response.ok) {
-      const data = await response.json()
-      setShortUrl(data.shortUrl)
-    } else {
-      const error = (await response.json()).error
-      setErrorMessage(error)
+      if (response.ok) {
+        const data = await response.json()
+        setShortUrl(data.shortUrl)
+      } else {
+        const error = (await response.json()).error
+        setErrorMessage(error)
+      }
+    } catch (e) {
+      window.location.href = '/500'
     }
   }
 
