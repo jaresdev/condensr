@@ -3,6 +3,8 @@ import '../styles/global.css'
 
 import Layout from '../layouts/Layout.astro'
 import Form from '../components/Form'
+
+const apiUrl = import.meta.env.VITE_API_URL
 ---
 
 <Layout title="✂️ Condensr">
@@ -13,7 +15,7 @@ import Form from '../components/Form'
     <div class="w-full flex items-center justify-center">
       <img src="condensr_logo.png" alt="condensr logo" />
     </div>
-    <Form client:visible />
+    <Form client:load apiUrl={apiUrl} />
     <div class="w-full flex items-center justify-center gap-3">
       <p class="text-secondary"><span class="mr-2">✂️</span>Shorten</p>
       <p class="text-secondary"><span class="mr-2">🔗</span>Share</p>

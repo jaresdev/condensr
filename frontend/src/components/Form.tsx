@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import API_BASE_URL from '../config/api'
 
-const Form = () => {
+const Form = ({ apiUrl }: { apiUrl: String }) => {
   const [url, setUrl] = useState('')
   const [shortUrl, setShortUrl] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
@@ -22,7 +21,7 @@ const Form = () => {
       return
     }
 
-    const response = await fetch(`${API_BASE_URL}/api/`, {
+    const response = await fetch(`${apiUrl}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,10 +29,13 @@ const Form = () => {
       body: JSON.stringify({ longUrl: url }),
     })
 
-    if (!response.ok) throw new Error('Failed to shorten URL')
-
-    const data = await response.json()
-    setShortUrl(data.shortUrl)
+    if (response.ok) {
+      const data = await response.json()
+      setShortUrl(data.shortUrl)
+    } else {
+      const error = (await response.json()).error
+      setErrorMessage(error)
+    }
   }
 
   return (
