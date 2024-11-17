@@ -4,10 +4,21 @@ const Form = () => {
   const [url, setUrl] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const urlRegex =
+    /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]{1,256}\.[a-z]{2,6}(\b[-a-zA-Z0-9@:%_\+.~#?&//=]*)?$/i;
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!url) setErrorMessage("URL is mandatory!");
+    if (!url) {
+      setErrorMessage("URL is mandatory!");
+      return;
+    }
+
+    if (!urlRegex.test(url)) {
+      setErrorMessage("Please enter a valid URL.");
+      return;
+    }
   };
 
   return (
@@ -38,7 +49,7 @@ const Form = () => {
         <div className="w-full order-2 lg:order-3 px-1 mb-4 lg:mb-0">
           {errorMessage ? (
             <span className="text-errorText/70 text-sm font-light">
-              {!url && errorMessage}
+              {errorMessage}
             </span>
           ) : (
             ""
