@@ -30,10 +30,13 @@ const Form = () => {
       body: JSON.stringify({ longUrl: url }),
     })
 
-    if (!response.ok) throw new Error('Failed to shorten URL')
-
-    const data = await response.json()
-    setShortUrl(data.shortUrl)
+    if (response.ok) {
+      const data = await response.json()
+      setShortUrl(data.shortUrl)
+    } else {
+      const error = (await response.json()).error
+      setErrorMessage(error)
+    }
   }
 
   return (
