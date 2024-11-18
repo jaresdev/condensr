@@ -44,6 +44,12 @@ const ShortenerPage = ({ apiUrl }: { apiUrl: String }) => {
     }
   }
 
+  const resetState = () => {
+    setUrl('')
+    setShortUrl('')
+    setErrorMessage('')
+  }
+
   return (
     <>
       {!shortUrl ? (
@@ -54,7 +60,7 @@ const ShortenerPage = ({ apiUrl }: { apiUrl: String }) => {
           setErrorMessage={setErrorMessage}
         />
       ) : (
-        <ShortenedLinkResult shortUrl={shortUrl} />
+        <ShortenedLinkResult shortUrl={shortUrl} resetState={resetState} />
       )}
     </>
   )
