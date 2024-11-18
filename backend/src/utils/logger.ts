@@ -3,7 +3,7 @@ const info = (...params: any[]) => {
 }
 
 const error = (...params: any[]) => {
-  console.log(...params)
+  console.error(...params)
 }
 
 export default { info, error }
