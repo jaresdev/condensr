@@ -33,6 +33,12 @@ export async function redirectToUrl(req: Request, res: Response) {
   const url = await Url.findOne({ shortId })
 
   if (!url) {
+    const env = process.env.NODE_ENV || 'development'
+    if (env === 'development') {
+      return res.redirect('http://localhost:4321/404')
+    }
+
+    // TODO
     return res.status(404).json({ error: 'Short Url not found!' })
   }
 
