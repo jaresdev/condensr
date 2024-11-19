@@ -16,12 +16,19 @@ export async function shortenUrl(req: Request, res: Response) {
     return res.status(400).json({ error: 'Invalid URL format!' })
   }
 
-  const shortId = nanoid(6)
+  let shortId
+  const url = await Url.findOne({ longUrl })
 
-  const newUrl = new Url({ longUrl, shortId })
-  await newUrl.save()
+  if (!url) {
+    shortId = nanoid(6)
 
-  res.status(201).json({
+    const newUrl = new Url({ longUrl, shortId })
+    await newUrl.save()
+  } else {
+    shortId = url?.shortId
+  }
+
+  res.status(!url ? 201 : 200).json({
     longUrl,
     shortUrl: `${req.protocol}://${req.get('host')}/${shortId}`,
   })
