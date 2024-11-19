@@ -2,12 +2,19 @@ import type { Request, Response } from 'express'
 import { nanoid } from 'nanoid'
 import { isURL } from 'validator'
 import Url from '../models/url'
+import { urlLengthValidator } from '../utils/urlLengthValidator'
 
 export async function shortenUrl(req: Request, res: Response) {
   const { longUrl } = req.body
 
   if (!longUrl) {
     return res.status(400).json({ error: 'longUrl is required!' })
+  }
+
+  if (!urlLengthValidator(longUrl)) {
+    return res
+      .status(400)
+      .json({ error: 'URL is too long. Maximum length is 1000 characters.' })
   }
 
   if (
