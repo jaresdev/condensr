@@ -14,7 +14,7 @@ const app = express()
 
 app.use(
   cors({
-    origin: 'https://condensr.vercel.app/',
+    origin: 'https://condensr.vercel.app',
     methods: ['GET', 'POST'],
     credentials: true,
   }),
