@@ -1,49 +1,92 @@
 import supertest from 'supertest'
-import assert from 'node:assert'
-import helper from './test_helper'
-import app from '../app'
-import connectDB from '../config/db'
-import URL from '../models/url'
+import { MongoMemoryServer } from 'mongodb-memory-server'
 import mongoose from 'mongoose'
+import app from '../app'
+import URL from '../models/url'
 
 const api = supertest(app)
 
-describe('Create short url, /api', () => {
-  beforeEach(async () => {
-    await connectDB()
-    URL.deleteMany({})
+const longUrl = 'https://www.example.com'
+
+let mongoServer
+
+beforeAll(async () => {
+  mongoServer = await MongoMemoryServer.create()
+  const uri = mongoServer.getUri()
+
+  await mongoose.connect(uri)
+})
+
+afterAll(async () => {
+  await mongoose.connection.close()
+  await mongoServer.stop()
+})
+
+beforeEach(async () => {
+  await URL.deleteMany({})
+})
+
+describe('redirectToUrl', () => {
+  it('should return 404 for a non-existent short URL', async () => {
+    const response = await api.get('/nonexistentId').expect(404)
+
+    expect(response.body.error).toBe('Short Url not found!')
   })
 
-  it('should create an short url', async () => {
-    const urls = await helper.urlsInDB()
+  it('should redirect to the original URL when accessing the short URL', async () => {
+    const postResponse = await api.post('/api').send({ longUrl }).expect(201)
+    const shortUrlId = postResponse.body.shortUrl.split('/').pop()
 
-    assert.strictEqual(urls.length, 0)
+    const response = await api.get(`/${shortUrlId}`).expect(302)
 
-    await api
-      .post('/api')
-      .send({ longUrl: 'https://www.google.com/' })
-      .expect(201)
-      .expect('Content-Type', /application\/json/)
+    expect(response.header.location).toBe(longUrl)
+  })
+})
 
-    const urlsAfterCreation = await helper.urlsInDB()
+describe('shortenUrl - URL Validation', () => {
+  it('should reject a blank URL', async () => {
+    const response = await api.post('/api').expect(400)
 
-    assert.strictEqual(urlsAfterCreation.length, 1)
+    expect(response.body.error).toBe('longUrl is required!')
   })
 
-  it('should return a 400 error when no long URL is provided', async () => {
-    const urls = await helper.urlsInDB()
+  it('should reject a URL that exceeds 1000 characters', async () => {
+    const exceededLongUrl = longUrl + 'a'.repeat(990)
 
     const response = await api
       .post('/api')
+      .send({ longUrl: exceededLongUrl })
       .expect(400)
-      .expect('Content-Type', /application\/json/)
 
-    assert(response.body.error.includes('longUrl is required!'))
-    assert.strictEqual(urls.length, 0)
+    expect(response.body.error).toBe(
+      'URL is too long. Maximum length is 1000 characters.',
+    )
   })
 
-  afterEach(async () => {
-    await mongoose.connection.dropDatabase()
-    await mongoose.connection.close()
+  it('should not create a new shortUrl if the long URL already exists', async () => {
+    await api.post('/api').send({ longUrl }).expect(201)
+
+    const response = await api.post('/api').send({ longUrl }).expect(200)
+
+    expect(response.body.shortUrl).toBeDefined()
+    expect(response.body.longUrl).toBe(longUrl)
+  })
+
+  it('should reject an invalid URL', async () => {
+    const invalidUrl = 'invalid-url'
+
+    const response = await api
+      .post('/api')
+      .send({ longUrl: invalidUrl })
+      .expect(400)
+
+    expect(response.body.error).toBe('Invalid URL format!')
+  })
+
+  it('should accept a valid URL', async () => {
+    const response = await api.post('/api').send({ longUrl }).expect(201)
+
+    expect(response.body.shortUrl).toBeDefined()
+    expect(response.body.longUrl).toBe(longUrl)
   })
 })
