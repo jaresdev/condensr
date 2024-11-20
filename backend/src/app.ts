@@ -14,7 +14,10 @@ const app = express()
 
 app.use(
   cors({
-    origin: 'https://condensr.vercel.app',
+    origin:
+      process.env.NODE_ENV === 'production'
+        ? 'https://condensr.vercel.app'
+        : 'http://localhost:4321',
     methods: ['GET', 'POST'],
     credentials: true,
   }),
