@@ -16,6 +16,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Install Bun
+        run: |
+          curl -fsSL https://bun.sh/install | bash
+          export PATH="$HOME/.bun/bin:$PATH"
+
+      - name: Verify Bun Installation
+        run: bun --version
+
       - name: Install Dependencies
         run: bun install
 
