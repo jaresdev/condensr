@@ -40,6 +40,7 @@ const ShortenerPage = ({ apiUrl }: { apiUrl: String }) => {
         setErrorMessage(error)
       }
     } catch (e) {
+      console.error(apiUrl)
       window.location.href = '/500'
     }
   }
