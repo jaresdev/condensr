@@ -14,7 +14,7 @@ const app = express()
 
 app.use(
   cors({
-    origin: 'http://localhost:4321',
+    origin: 'https://condensr.vercel.app/',
     methods: ['GET', 'POST'],
     credentials: true,
   }),
