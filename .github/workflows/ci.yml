@@ -20,9 +20,15 @@ jobs:
         uses: oven-sh/setup-bun@v2
 
       # run any `bun`or `bunx`command
-      - run: bun install
-      - run: bun index.ts
-      - run: bun run build
+      - run: |
+          cd backend
+          bun install
+      - run: |
+          cd backend
+          bun index.ts
+      - run: |
+          cd backend
+          bun run build
 
       - name: Run Tests
         run: bun run test --coverage
