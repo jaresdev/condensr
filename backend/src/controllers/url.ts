@@ -12,11 +12,9 @@ export async function shortenUrl(req: Request, res: Response) {
   }
 
   if (!urlLengthValidator(longUrl)) {
-    return res
-      .status(400)
-      .json({
-        error: 'URL is too long. Maximum length is 1000 characters. TEST',
-      })
+    return res.status(400).json({
+      error: 'URL is too long. Maximum length is 1000 characters.',
+    })
   }
 
   if (
