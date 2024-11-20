@@ -6,6 +6,9 @@ import express, {
 import urlRouter from './routes/url'
 import cors from 'cors'
 import { errorHandler } from './middlewares/errorHandler'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const app = express()
 
