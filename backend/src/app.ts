@@ -24,8 +24,9 @@ app.use(
 )
 
 app.use(express.json())
-app.use(express.static('dist'))
 app.use('/', urlRouter)
+
+app.use(express.static('dist'))
 
 // Middlewares
 if (process.env.NODE_ENV === 'production') {
