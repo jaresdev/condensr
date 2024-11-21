@@ -16,10 +16,6 @@ app.use(cors())
 
 app.use(express.json())
 app.use('/', urlRouter)
-app.use('/api', (req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`)
-  next()
-})
 
 app.use(express.static('dist'))
 
