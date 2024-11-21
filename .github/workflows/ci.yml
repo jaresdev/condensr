@@ -22,11 +22,15 @@ jobs:
       - name: Install Astro globally
         run: bun add -g astro@latest
 
-      - run: |
-          cd backend
+      - name: Install Frontend dependencies
+        working-directory: frontend
+        run: |
           bun install
-      - run: |
-          cd backend
+
+      - name: Build Backend
+        working-directory: backend
+        run: |
+          bun install
           bun run build:ui
 
       - name: Run Tests
