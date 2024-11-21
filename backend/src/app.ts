@@ -26,11 +26,6 @@ app.use(
 app.use(express.json())
 app.use('/', urlRouter)
 
-app.use('/api', (req, res, next) => {
-  console.log(`API request to: ${req.url}`)
-  next()
-})
-
 app.use(express.static('dist'))
 
 // Middlewares
