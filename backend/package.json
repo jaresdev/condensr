@@ -9,7 +9,7 @@
     "test": "bun test",
     "test:watch": "bun test --watch",
     "test:coverage": "bun test --coverage",
-    "build": "bun build ./src/app.ts --outdir ./dist"
+    "build:ui": "rm -rf dist && cd ../frontend && npm run build && cp -r dist ../backend"
   },
   "devDependencies": {
     "@babel/core": "7.26.0",
