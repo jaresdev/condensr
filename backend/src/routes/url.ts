@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { shortenUrl, redirectToUrl } from '../controllers/url'
+import path from 'path'
 
 const router = Router()
 
@@ -8,5 +9,13 @@ const router = Router()
 router.post('/api', shortenUrl as any)
 
 router.get('/:shortId', redirectToUrl as any)
+
+router.get('/404', (req, res) => {
+  res.status(404).sendFile(path.resolve(__dirname, '../../dist/404.html'))
+})
+
+router.get('/500', (req, res) => {
+  res.status(500).sendFile(path.resolve(__dirname, '../../dist/500.html'))
+})
 
 export default router

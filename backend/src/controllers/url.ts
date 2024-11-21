@@ -49,7 +49,7 @@ export async function redirectToUrl(req: Request, res: Response) {
   if (!url) {
     const env = process.env.NODE_ENV || 'development'
     if (env === 'development') {
-      return res.redirect('http://localhost:4321/404')
+      return res.redirect('/404')
     }
 
     // TODO
