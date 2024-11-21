@@ -19,10 +19,10 @@ jobs:
       - name: Install Bun
         uses: oven-sh/setup-bun@v2
 
-      - name: Install Astro dependencies
-        run: |
-          cd backend
-          bun astro build
+      - name: Install Astro
+        uses: withastro/action@v3
+        with:
+          package-manager: bun
 
       - run: |
           cd backend
