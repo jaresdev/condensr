@@ -19,13 +19,12 @@ jobs:
       - name: Install Bun
         uses: oven-sh/setup-bun@v2
 
-      # run any `bun`or `bunx`command
       - run: |
           cd backend
           bun install
       - run: |
           cd backend
-          bun run build
+          bun run build:ui
 
       - name: Run Tests
         run: bun run test --coverage
