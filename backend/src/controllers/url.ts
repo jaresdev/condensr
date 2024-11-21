@@ -1,4 +1,4 @@
-import type { Request, Response } from 'express'
+import type { NextFunction, Request, Response } from 'express'
 import { nanoid } from 'nanoid'
 import { isURL } from 'validator'
 import Url from '../models/url'
@@ -41,10 +41,23 @@ export async function shortenUrl(req: Request, res: Response) {
   })
 }
 
-export async function redirectToUrl(req: Request, res: Response) {
+export async function redirectToUrl(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   const { shortId } = req.params
 
   const url = await Url.findOne({ shortId })
+
+  if (
+    shortId.endsWith('.png') ||
+    shortId.endsWith('.jpg') ||
+    shortId.endsWith('.css') ||
+    shortId.endsWith('.js')
+  ) {
+    return next()
+  }
 
   if (!url) {
     const env = process.env.NODE_ENV || 'development'
