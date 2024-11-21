@@ -12,16 +12,7 @@ dotenv.config()
 
 const app = express()
 
-app.use(
-  cors({
-    origin:
-      process.env.NODE_ENV === 'production'
-        ? 'https://condensr.vercel.app'
-        : 'http://localhost:4321',
-    methods: ['GET', 'POST'],
-    credentials: true,
-  }),
-)
+app.use(cors())
 
 app.use(express.json())
 app.use('/', urlRouter)
