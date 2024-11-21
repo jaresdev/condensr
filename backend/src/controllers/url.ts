@@ -59,15 +59,7 @@ export async function redirectToUrl(
     return next()
   }
 
-  if (!url) {
-    const env = process.env.NODE_ENV || 'development'
-    if (env === 'development') {
-      return res.redirect('/404')
-    }
-
-    // TODO
-    return res.status(404).json({ error: 'Short Url not found!' })
-  }
+  if (!url) return res.redirect('/404')
 
   return res.redirect(url.longUrl!)
 }
