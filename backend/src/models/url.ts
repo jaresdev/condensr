@@ -11,6 +11,11 @@ const urlSchema = new mongoose.Schema(
       require: true,
       unique: true,
     },
+    clicked: {
+      type: Number,
+      require: true,
+      default: 0,
+    },
     createdAt: {
       type: Date,
       default: Date.now,
