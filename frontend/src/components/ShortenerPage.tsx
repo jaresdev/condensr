@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import Form from './Form'
 import ShortenedLinkResult from './ShortenedLinkResult'
+import Loader from './Loader'
 
 const ShortenerPage = ({ apiUrl }: { apiUrl: String }) => {
   const [url, setUrl] = useState('')
   const [shortUrl, setShortUrl] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const [generating, setGenerating] = useState(false)
 
   const urlRegex =
     /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]{1,256}\.[a-z]{2,6}(\b[-a-zA-Z0-9@:%_\+.~#?&//=]*)?$/i
@@ -24,6 +26,7 @@ const ShortenerPage = ({ apiUrl }: { apiUrl: String }) => {
     }
 
     try {
+      setGenerating(true)
       const response = await fetch(`${apiUrl}`, {
         method: 'POST',
         headers: {
@@ -39,6 +42,8 @@ const ShortenerPage = ({ apiUrl }: { apiUrl: String }) => {
         const error = (await response.json()).error
         setErrorMessage(error)
       }
+
+      setGenerating(false)
     } catch (e) {
       window.location.href = '/500'
     }
@@ -52,7 +57,9 @@ const ShortenerPage = ({ apiUrl }: { apiUrl: String }) => {
 
   return (
     <>
-      {!shortUrl ? (
+      {generating ? (
+        <Loader />
+      ) : !shortUrl ? (
         <Form
           handleSubmit={handleSubmit}
           setUrl={setUrl}
