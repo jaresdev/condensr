@@ -61,5 +61,8 @@ export async function redirectToUrl(
 
   if (!url) return res.redirect('/404')
 
+  url.clicked++
+  url.save()
+
   return res.redirect(url.longUrl!)
 }
