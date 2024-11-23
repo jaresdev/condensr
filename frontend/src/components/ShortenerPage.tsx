@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import Form from './Form'
-import ShortenedLinkResult from './ShortenedLinkResult'
-import Loader from './Loader'
+import Form from '@/components/Form'
+import ShortenedLinkResult from '@/components/ShortenedLinkResult'
+import Loader from '@/components/Loader'
 
 const ShortenerPage = ({ apiUrl }: { apiUrl: String }) => {
   const [url, setUrl] = useState('')
